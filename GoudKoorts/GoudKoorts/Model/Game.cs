@@ -19,6 +19,11 @@ namespace GoudKoorts
 
         public void Start()
         {
+            
+        }
+
+        public void CreateGame()
+        {
             //aanmaken van alle lijsten
         }
     }

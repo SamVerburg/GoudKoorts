@@ -26,13 +26,13 @@
     </AssociationLine>
     <AssociationLine Name="Objects" Type="GoudKoorts.MovableObject" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="8.25" Y="3.812" />
-        <Point X="9.188" Y="3.812" />
+        <Point X="8.25" Y="3.867" />
+        <Point X="9.188" Y="3.867" />
         <Point X="9.188" Y="4.5" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>QAAAAAAAACAAAAAAAAAAAAAAAAAgAAEAEAgAAAAAAAA=</HashCode>
+      <HashCode>QAAAAAAAACAAAAAAAAACAAAAAAAgAAEAEAgAAAAAAAA=</HashCode>
       <FileName>Model\Game.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
