@@ -11,5 +11,11 @@ namespace GoudKoorts
 
         public Game Game { get; set; } = new Game();
 
+        public void Start()
+        {
+            //Loopie loops <3 <3 <3 <3 <3
+        }
     }
+
+
 }

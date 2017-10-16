@@ -17,14 +17,17 @@ namespace GoudKoorts
 
         public Field RiverFirst { get; set; }
 
-        public void Start()
-        {
-            
-        }
+        
+
 
         public void CreateGame()
         {
             //aanmaken van alle lijsten
+            RiverFirst = new River();
+            AFirst = new Rail();
+            BFirst = new Rail();
+            CFirst = new Rail();
+
         }
     }
 }

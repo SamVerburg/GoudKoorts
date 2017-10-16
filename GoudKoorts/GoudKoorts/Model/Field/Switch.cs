@@ -8,7 +8,7 @@ namespace GoudKoorts
     public class Switch : Field
     {
 
-        public Field OldPrevious
+        public Field Upper
         {
             get
             {
@@ -20,7 +20,20 @@ namespace GoudKoorts
             }
         }
 
-        public Field Previous
+        public Field Lower
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+
+        public State State
         {
             get
             {

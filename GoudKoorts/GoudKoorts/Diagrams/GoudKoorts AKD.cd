@@ -9,6 +9,13 @@
   </Class>
   <Class Name="GoudKoorts.Game">
     <Position X="6.75" Y="3.5" Width="1.5" />
+    <AssociationLine Name="Objects" Type="GoudKoorts.MovableObject" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="3.813" />
+        <Point X="9.188" Y="3.813" />
+        <Point X="9.188" Y="4.5" />
+      </Path>
+    </AssociationLine>
     <AssociationLine Name="AFirst" Type="GoudKoorts.Field">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.115" Y="-0.086" />
@@ -24,15 +31,8 @@
         <Position X="0.12" Y="-0.078" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Objects" Type="GoudKoorts.MovableObject" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="8.25" Y="3.867" />
-        <Point X="9.188" Y="3.867" />
-        <Point X="9.188" Y="4.5" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>QAAAAAAAACAAAAAAAAACAAAAAAAgAAEAEAgAAAAAAAA=</HashCode>
+      <HashCode>QAAAAAAAAAAAAAAAAAACAAAAAAAgAAEAEAgAAAAAAAA=</HashCode>
       <FileName>Model\Game.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -58,9 +58,12 @@
   <Class Name="GoudKoorts.Switch">
     <Position X="4" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAQAAAAAABAAAAAA=</HashCode>
       <FileName>Model\Field\Switch.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="State" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="GoudKoorts.Shunter">
     <Position X="0.5" Y="5.75" Width="1.5" />
@@ -108,9 +111,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GoudKoorts.GameController">
-    <Position X="6.75" Y="2.25" Width="1.5" />
+    <Position X="6.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controller\GameController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -125,5 +128,12 @@
       <FileName>Model\Field\Field.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Enum Name="GoudKoorts.State">
+    <Position X="4" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAACAAAAACAAAAAAAAAIAAAA=</HashCode>
+      <FileName>State.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

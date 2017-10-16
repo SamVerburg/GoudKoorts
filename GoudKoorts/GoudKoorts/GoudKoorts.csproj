@@ -47,6 +47,7 @@
     <Compile Include="Model\MovableObject\Cart.cs" />
     <Compile Include="Model\Game.cs" />
     <Compile Include="Controller\GameController.cs" />
+    <Compile Include="State.cs" />
     <Compile Include="View\InputView.cs" />
     <Compile Include="Model\MovableObject\MovableObject.cs" />
     <Compile Include="View\OutputView.cs" />
