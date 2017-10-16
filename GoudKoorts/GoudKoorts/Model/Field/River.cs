@@ -7,5 +7,6 @@ namespace GoudKoorts
 {
     public class River : Field
     {
+        public Field Quay { get; set; }
     }
 }

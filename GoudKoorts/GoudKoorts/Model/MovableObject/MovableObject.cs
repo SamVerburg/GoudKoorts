@@ -5,11 +5,20 @@ using System.Text;
 
 namespace GoudKoorts
 {
-    public class MovableObject
+    public abstract class MovableObject
     {
-        public void Move()
+        public Field Field
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
         }
+
+        public abstract void Move();
     }
 }

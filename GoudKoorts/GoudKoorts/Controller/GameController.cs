@@ -13,9 +13,7 @@ namespace GoudKoorts
 
         public void Start()
         {
-            //Loopie loops <3 <3 <3 <3 <3
+            //Loopie loops <3 <3 <3 <3 <3 aww sio cutoetjs
         }
     }
-
-
 }

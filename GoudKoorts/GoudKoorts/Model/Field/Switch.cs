@@ -7,41 +7,51 @@ namespace GoudKoorts
 {
     public class Switch : Field
     {
+        public Field Upper { get; set; }
+        public Field Lower { get; set; }
+        public State State { get; set; }
 
-        public Field Upper
+        public bool CanMoveTo(Cart cart)
         {
-            get
+            if (cart.Field == Upper)
             {
-                throw new System.NotImplementedException();
+                if (State == State.FROMUPPER)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (State == State.FROMLOWER)
+                {
+                    return true;
+                }
             }
 
-            set
-            {
-            }
+            return false;
         }
 
-        public Field Lower
+        public void SwitchState()
         {
-            get
+            if (this.MovableObject != null)
             {
-                throw new System.NotImplementedException();
+                return;
             }
 
-            set
+            switch (State)
             {
-            }
-        }
-
-
-        public State State
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
+                case State.FROMLOWER:
+                    State = State.FROMUPPER;
+                    return;
+                case State.FROMUPPER:
+                    State = State.FROMLOWER;
+                    return;
+                case State.TOLOWER:
+                    State = State.TOUPPER;
+                    return;
+                case State.TOUPPER:
+                    State = State.TOLOWER;
+                    return;
             }
         }
     }

@@ -13,5 +13,17 @@
             {
             }
         }
+
+        public MovableObject MovableObject
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
     }
 }
