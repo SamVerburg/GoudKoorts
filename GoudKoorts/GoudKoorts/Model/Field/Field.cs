@@ -2,28 +2,11 @@
 {
     public abstract class Field
     {
-        public Field Next
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public Field Next { get; set; }
 
-            set
-            {
-            }
-        }
+        public MovableObject MovableObject { get; set; }
 
-        public MovableObject MovableObject
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public abstract override string ToString();
 
-            set
-            {
-            }
-        }
     }
 }

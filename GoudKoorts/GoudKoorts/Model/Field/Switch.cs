@@ -7,8 +7,8 @@ namespace GoudKoorts
 {
     public class Switch : Field
     {
-        public Field Upper { get; set; }
-        public Field Lower { get; set; }
+        public Rail Upper { get; set; }
+        public Rail Lower { get; set; }
         public State State { get; set; }
 
         public bool CanMoveTo(Cart cart)
@@ -27,7 +27,6 @@ namespace GoudKoorts
                     return true;
                 }
             }
-
             return false;
         }
 
@@ -53,6 +52,31 @@ namespace GoudKoorts
                     State = State.TOLOWER;
                     return;
             }
+        }
+
+        public override string ToString()
+        {
+            switch (State)
+            {
+                case State.FROMLOWER:
+                    return "╔";
+                case State.FROMUPPER:
+                    return "╚";
+                case State.TOLOWER:
+                    return "╗";
+                case State.TOUPPER:
+                    return "╝";
+            }
+            return null;
+        }
+        
+        public bool isConverging()
+        {
+            if (State == State.FROMLOWER || State == State.FROMUPPER)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

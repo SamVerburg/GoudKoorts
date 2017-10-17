@@ -10,6 +10,7 @@ namespace GoudKoorts
     {
         static void Main(string[] args)
         {
+            new InputView();
         }
     }
 }

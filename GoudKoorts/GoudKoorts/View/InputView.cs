@@ -7,16 +7,12 @@ namespace GoudKoorts
 {
     public class InputView
     {
-        public GameController GameController
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public GameController GameController { get; set; } = new GameController();
 
-            set
-            {
-            }
+        public InputView()
+        {
+            Console.SetWindowSize(500,500);
+            
         }
     }
 }

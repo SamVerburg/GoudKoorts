@@ -7,5 +7,9 @@ namespace GoudKoorts
 {
     public class Shunter : Field
     {
+        public override string ToString()
+        {
+            return "═";
+        }
     }
 }
