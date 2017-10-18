@@ -211,7 +211,7 @@ namespace GoudKoorts
         {
             //Netter maken ~~! 
 
-            if (hutnerf.MovableObject != null)
+            if (f.MovableObject != null)
             {
                 playingField[row, counter] = ((Rail)f).ToString();
             }
