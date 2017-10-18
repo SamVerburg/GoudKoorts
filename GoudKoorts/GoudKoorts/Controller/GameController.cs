@@ -19,12 +19,13 @@ namespace GoudKoorts
         {
             while (Game.IsPlaying)
             {
-                int threadWait = 100 + (int)(100 / Math.Sqrt(Game.TotalGold + 1));
+                int threadWait = 50 + (int)(50 / Math.Sqrt(Game.TotalGold + 1));
                 Thread.Sleep(threadWait);
                 
+                
+                OutputView.PrintGame(GetPlayingField(),Game.TotalGold, threadWait);
                 Game.MoveAllObjects();
                 Game.SpawnCarts();
-                OutputView.PrintGame(GetPlayingField(),Game.TotalGold, threadWait);
             }
             OutputView.ShowLoseMessage(Game.TotalGold);
         }

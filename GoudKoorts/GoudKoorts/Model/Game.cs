@@ -159,14 +159,37 @@ namespace GoudKoorts
                 o.Move();
                 if (o is Cart)
                 {
-                    if (((Cart) o).HasCrashed)
-                    {
-                        IsPlaying = false;
-                        return;
-                    }
+                    CheckCrashed((Cart)o);
+                }
+                else if (o is Boat)
+                {
+                    CheckSpawnBoat((Boat)o);
                 }
             }
             UpdateTotalGold();
+        }
+
+        private bool CheckCrashed(Cart o)
+        {
+            if (((Cart)o).HasCrashed)
+            {
+                IsPlaying = false;
+                return true;
+            }
+            return false;
+        }
+
+        private void CheckSpawnBoat(Boat b)
+        {
+            if (b.Field == null) return;
+            if(((River)b.Field).Quay == null) return;
+            
+            if (b.Load == 8 && ((River)b.Field).MovableObject == b)
+            {
+                Boat boat = new Boat() { Field = RiverFirst };
+                RiverFirst.MovableObject = boat;
+                Objects.Add(boat);
+            }
         }
 
         private void UpdateTotalGold()
@@ -176,7 +199,7 @@ namespace GoudKoorts
             {
                 if (o is Boat)
                 {
-                    Boat b = (Boat) o;
+                    Boat b = (Boat)o;
                     totalGold += b.Load;
                     if (b.Load == 8)
                     {
@@ -205,12 +228,12 @@ namespace GoudKoorts
                 Objects.Add(b);
             }
 
-            if (r.Next(5) < 1)
+           /* if (r.Next(5) < 1)
             {
                 Cart c = new Cart() { Field = CFirst };
                 CFirst.MovableObject = c;
                 Objects.Add(c);
-            }
+            }*/
         }
     }
 }
