@@ -48,7 +48,7 @@ namespace GoudKoorts
             InsertUntilDivergingSwitch(Game.AFirst, 0, 5);
             InsertUntilDivergingSwitch(Game.BFirst, 0, 7);
             InsertUntilDivergingSwitch(Game.CFirst, 0, 9);
-            
+            // printMatrix();
             return playingField;
         }
 
@@ -59,6 +59,12 @@ namespace GoudKoorts
             for (Field r = f; r != null; r = r.Next)
             {
                 playingField[row, counter] = r.ToString();
+
+                if (row == 6 && counter == 12)
+                {
+                    AddQuayRow(r, counter, row);
+                    break;
+                }
                 counter++;
 
                 if (counter > 12)
@@ -83,7 +89,7 @@ namespace GoudKoorts
                 }
                 else
                 {
-                  
+
                     InsertUntilConvergingSwitch(s, counter, row);
                     break;
                 }
@@ -113,11 +119,14 @@ namespace GoudKoorts
             {
                 playingField[row - 1, counter] = r.ToString();
 
+
+
                 counter++;
                 if (counter > 12)
                 {
                     break;
                 }
+
 
                 if (r.Next is Switch)
                 {
@@ -142,7 +151,14 @@ namespace GoudKoorts
             {
                 playingField[row + 1, counter] = r.ToString();
 
+
+                if (row == 8 && counter == 12)
+                {
+                    AddShunter(r, counter, row);
+                    break;
+                }
                 counter++;
+
                 if (counter > 12)
                 {
                     break;
@@ -155,9 +171,108 @@ namespace GoudKoorts
                 }
             }
         }
-        private void AddShunter()
+        private void AddShunter(Field f, int counter, int row)
         {
+            //Komt hierin wanneer row 9 , en counter 12 is, en tekent de bochten op plaats 9-12 en 10-12
+
+            if (f.MovableObject != null)
+            {
+                playingField[row + 1, counter] = ((Rail)f).ToString();
+            }
+            else
+            {
+                playingField[row + 1, counter] = ((Rail)f).printValue;
+
+            }
+            if (f.Next.MovableObject != null)
+            {
+                playingField[row + 2, counter] = ((Rail)f.Next).ToString();
+
+            }
+            else
+            {
+                playingField[row + 2, counter] = ((Rail)f.Next).printValue;
+
+            }
+
+            //Maak de rest inc. Shunters
+            counter--;
+            for (Field r = f.Next.Next; r != null; r = r.Next)
+            {
+                playingField[row + 2, counter] = r.ToString();
+                counter--;
+
+            }
+
+
+        }
+
+        private void AddQuayRow(Field f, int counter, int row)
+        {
+            //Netter maken ~~! 
+
+            if (hutnerf.MovableObject != null)
+            {
+                playingField[row, counter] = ((Rail)f).ToString();
+            }
             
+            else
+            {
+                playingField[row, counter] = ((Rail)f).printValue;
+
+            }
+            if (f.Next.MovableObject != null)
+            {
+                playingField[row -1, counter] = ((Rail)f.Next).ToString();
+            }
+
+            else
+            {
+                playingField[row -1, counter] = ((Rail)f.Next).printValue;
+
+            }
+            if (f.Next.Next.MovableObject != null)
+            {
+                playingField[row -2 , counter] = ((Rail)f.Next.Next).ToString();
+            }
+
+            else
+            {
+                playingField[row -2, counter] = ((Rail)f.Next.Next).printValue;
+
+            }
+            if (f.Next.Next.Next.MovableObject != null)
+            {
+                playingField[row -3, counter] = ((Rail)f.Next.Next.Next).ToString();
+            }
+
+            else
+            {
+                playingField[row -3, counter] = ((Rail)f.Next.Next.Next).printValue;
+
+            }
+            for (Field r = f.Next.Next.Next.Next; r != null; r = r.Next)
+            {
+
+                playingField[row - 3, counter-1] = ((Rail)r).ToString();
+                counter--;
+            }
+        }
+
+        private void printMatrix()
+        {
+            int rowLength = playingField.GetLength(0);
+            int colLength = playingField.GetLength(1);
+
+            for (int i = 0; i < rowLength; i++)
+            {
+                for (int j = 0; j < colLength; j++)
+                {
+                    Console.Write(string.Format("{0} ", playingField[i, j] + " " + i + " " + j));
+                }
+                Console.Write(Environment.NewLine + Environment.NewLine);
+            }
+            Console.ReadLine();
         }
     }
 }

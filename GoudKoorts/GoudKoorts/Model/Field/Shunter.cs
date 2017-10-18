@@ -9,6 +9,10 @@ namespace GoudKoorts
     {
         public override string ToString()
         {
+            if (this.MovableObject != null)
+            {
+                return "#";
+            }
             return "═";
         }
     }

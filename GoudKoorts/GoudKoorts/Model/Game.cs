@@ -19,6 +19,8 @@ namespace GoudKoorts
 
         public Field RiverFirst { get; set; }
 
+       
+
 
         public Game()
         {
@@ -112,14 +114,17 @@ namespace GoudKoorts
             switch4.Upper.Next.Next = switch5;
 
             Field currentE = switch5.Next;
+            //Rails vanaf switch 5.next tot kade
             for (int i = 0; i < 7; i++)
             {
                 currentE.Next = new Rail();
                 currentE = currentE.Next;
             }
 
+            //Kade wordt gedefinieert
             quayField.Quay = currentE;
 
+            //Rest van de 9 rails na kade
             for (int i = 0; i < 9; i++)
             {
                 currentE.Next = new Rail();
@@ -143,6 +148,15 @@ namespace GoudKoorts
             switch2.Lower.printValue = "╚";
             switch4.Upper.printValue = "╔";
             switch4.Lower.printValue = "╚";
+            ((Rail)switch4.Lower.Next.Next.Next).printValue = "╗";
+            ((Rail)switch4.Lower.Next.Next.Next.Next).printValue = "╝";
+
+            //6-12 en 3-12
+            ((Rail)switch5.Next.Next).printValue = "╝";
+            ((Rail)switch5.Next.Next.Next).printValue = "║";
+            ((Rail)switch5.Next.Next.Next.Next).printValue = "║";
+            ((Rail)switch5.Next.Next.Next.Next.Next).printValue = "╗";
+
         }
 
         public void MoveAllObjects()
