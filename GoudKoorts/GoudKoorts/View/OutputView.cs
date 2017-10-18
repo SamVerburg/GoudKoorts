@@ -34,5 +34,14 @@ namespace GoudKoorts
             Console.WriteLine("Goud: " + TotalGold);
             Console.WriteLine("Timer: " + threadWait);
         }
+
+        public void ShowLoseMessage(int TotalGold)
+        {
+            Console.WriteLine("╔════════╗");
+            Console.WriteLine("║VERLOREN║");
+            Console.WriteLine("╚════════╝");
+
+            Console.ReadLine();
+        }
     }
 }

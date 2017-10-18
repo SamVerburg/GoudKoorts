@@ -17,15 +17,16 @@ namespace GoudKoorts
 
         public GameController()
         {
-            while (true)
+            while (Game.IsPlaying)
             {
-                int threadWait = 500 + (int)(500 / Math.Sqrt(Game.TotalGold + 1));
+                int threadWait = 100 + (int)(100 / Math.Sqrt(Game.TotalGold + 1));
                 Thread.Sleep(threadWait);
                 
                 Game.MoveAllObjects();
                 Game.SpawnCarts();
                 OutputView.PrintGame(GetPlayingField(),Game.TotalGold, threadWait);
             }
+            OutputView.ShowLoseMessage(Game.TotalGold);
         }
 
         private string[,] GetPlayingField()

@@ -10,6 +10,7 @@ namespace GoudKoorts
     public class Game
     {
         public List<MovableObject> Objects { get; set; } = new List<MovableObject>();
+        public bool IsPlaying { get; set; } = true;
 
         public Field AFirst { get; set; }
 
@@ -156,6 +157,14 @@ namespace GoudKoorts
             foreach (var o in Objects)
             {
                 o.Move();
+                if (o is Cart)
+                {
+                    if (((Cart) o).HasCrashed)
+                    {
+                        IsPlaying = false;
+                        return;
+                    }
+                }
             }
             UpdateTotalGold();
         }
@@ -182,12 +191,12 @@ namespace GoudKoorts
         {
             Random r = new Random();
 
-            if (r.Next(5) < 1)
+            /*if (r.Next(5) < 1)
             {
                 Cart a = new Cart() { Field = AFirst };
                 AFirst.MovableObject = a;
                 Objects.Add(a);
-            }
+            }*/
 
             if (r.Next(5) < 1)
             {

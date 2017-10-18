@@ -13,73 +13,99 @@ namespace GoudKoorts
 
         public override void Move()
         {
-            if (CanMove() && HasCrashed == false)
+            if (Field == null) return;
+            if (!CanMove()) return;
+
+            Field.MovableObject = null;
+            if (Field.Next != null)
             {
-                Field.MovableObject = null;
-                Field = Field.Next ?? null;
+                Field = Field.Next;
                 Field.MovableObject = this;
+            }
+            else
+            {
+                Field = null;
             }
         }
 
         public bool CanMove()
         {
+            bool canMove = true;
+
             if (Field.Next == null)
             {
-                if (!(this.Field is Shunter))
+                if (Field is Shunter)
                 {
-                    this.Field.MovableObject = null;
-                    return false;
+                    canMove = false;
                 }
-                return true;
+                return canMove;
             }
 
             Cart c = (Cart)Field.Next.MovableObject;
+            bool nextCartCanMove = false;
             if (c != null)
             {
-                if (c.CanMove())
-                {
-                    return true;
-                }
-                HasCrashed = true;
+                nextCartCanMove = c.CanMove();
             }
+
             //NEXT FIELD IS SWITCH
 
             if (Field.Next is Switch)
             {
-                Switch s = (Switch) Field.Next;
+                Switch s = (Switch)Field.Next;
 
                 //CONVERGING
                 if (s.isConverging())
                 {
-                    
+                    if (s.CanMoveTo(this))
+                    {
+                        if (c != null)
+                        {
+                            HasCrashed = true;
+                            canMove = false;
+                        }
+                    }
+                    else
+                    {
+                        canMove = false;
+                    }
                 }
                 //DIVERGING
-                else
+                else if (!s.isConverging())
                 {
-                    return true;
+                    if (c != null)
+                    {
+                        HasCrashed = true;
+                        canMove = false;
+                    }
                 }
 
             }
-
-
-
-
             //NOT SWITCH
-            
+            else if (c != null)
+            {
+                canMove = nextCartCanMove;
+                if (nextCartCanMove == false)
+                {
+                    if (!(Field is Shunter))
+                    {
+                        HasCrashed = true;
+                    }
+                }
+            }
 
-
-            return false;
+            return canMove;
         }
 
         public override string ToString()
         {
+            if (HasCrashed)
+            {
+                return "X";
+            }
             if (HasLoad)
             {
                 return "L";
-            }
-            else if (HasCrashed)
-            {
-                return "X";
             }
             return "U";
         }
