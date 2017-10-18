@@ -53,6 +53,7 @@ namespace GoudKoorts
         }
 
 
+
         private void InsertUntilDivergingSwitch(Field f, int counter, int row)
         {
             for (Field r = f; r != null; r = r.Next)
@@ -82,6 +83,7 @@ namespace GoudKoorts
                 }
                 else
                 {
+                  
                     InsertUntilConvergingSwitch(s, counter, row);
                     break;
                 }
@@ -90,8 +92,13 @@ namespace GoudKoorts
 
         private void InsertUntilConvergingSwitch(Switch f, int counter, int row)
         {
+            //DRAWSWITCH
             playingField[row, counter] = f.ToString();
 
+            //UpperSwitch
+            Switch temp = null;
+
+            //UPPER
             int oldCounter = counter;
             if (f.Upper.MovableObject != null)
             {
@@ -114,10 +121,12 @@ namespace GoudKoorts
 
                 if (r.Next is Switch)
                 {
+                    temp = (Switch)r.Next;
                     break;
                 }
             }
 
+            //LOWER
             counter = oldCounter;
 
             if (f.Lower.MovableObject != null)
@@ -128,10 +137,10 @@ namespace GoudKoorts
             {
                 playingField[row + 1, counter++] = f.Lower.printValue;
             }
-            
+
             for (Field r = f.Lower.Next; r != null; r = r.Next)
             {
-                playingField[row+1, counter] = r.ToString();
+                playingField[row + 1, counter] = r.ToString();
 
                 counter++;
                 if (counter > 12)
@@ -141,12 +150,11 @@ namespace GoudKoorts
 
                 if (r.Next is Switch)
                 {
-                    InsertUntilDivergingSwitch(f, counter+2, row);
+                    InsertUntilDivergingSwitch(temp, counter + 2, row);
                     break;
                 }
             }
         }
-
         private void AddShunter()
         {
             
