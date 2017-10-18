@@ -107,7 +107,7 @@ namespace GoudKoorts
                 currentD = currentD.Next;
             }
 
-            Switch switch5 = new Switch { State = State.FROMLOWER, Upper = (Rail)currentD, Lower = (Rail)switch4.Upper.Next, Next = new Rail() };
+            Switch switch5 = new Switch { State = State.FROMUPPER, Upper = (Rail)currentD, Lower = (Rail)switch4.Upper.Next, Next = new Rail() };
             currentD.Next = switch5;
             switch4.Upper.Next.Next = switch5;
 
