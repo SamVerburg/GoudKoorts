@@ -7,7 +7,7 @@ namespace GoudKoorts
 {
     public class OutputView
     {
-        public void PrintGame(string[,] playingField)
+        public void PrintGame(string[,] playingField, int TotalGold, int threadWait)
         {
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Blue;
@@ -31,6 +31,8 @@ namespace GoudKoorts
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("Goud: " + TotalGold);
+            Console.WriteLine("Timer: " + threadWait);
         }
     }
 }

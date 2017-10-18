@@ -13,58 +13,62 @@ namespace GoudKoorts
 
         public override void Move()
         {
+            if (CanMove() && HasCrashed == false)
+            {
+                Field.MovableObject = null;
+                Field = Field.Next ?? null;
+                Field.MovableObject = this;
+            }
+        }
+
+        public bool CanMove()
+        {
             if (Field.Next == null)
             {
                 if (!(this.Field is Shunter))
                 {
                     this.Field.MovableObject = null;
+                    return false;
                 }
-                return;
+                return true;
             }
+
+            Cart c = (Cart)Field.Next.MovableObject;
+            if (c != null)
+            {
+                if (c.CanMove())
+                {
+                    return true;
+                }
+                HasCrashed = true;
+            }
+            //NEXT FIELD IS SWITCH
+
+            if (Field.Next is Switch)
+            {
+                Switch s = (Switch) Field.Next;
+
+                //CONVERGING
+                if (s.isConverging())
+                {
+                    
+                }
+                //DIVERGING
+                else
+                {
+                    return true;
+                }
+
+            }
+
+
+
+
+            //NOT SWITCH
             
-            if (!(Field.Next is Switch))
-            {
-                if (Field.Next.MovableObject == null)
-                {
-                    Field.MovableObject = null;
-                    Field = Field.Next ?? null;
-                    Field.MovableObject = this;
-                }
-                else
-                {
-                    if (Field.Next is Shunter)
-                    {
-                        return;
-                    }
-                    HasCrashed = true;
-                }
-            }
-            else if (!((Switch)Field.Next).isConverging())
-            {
-                if (Field.Next.MovableObject == null)
-                {
-                    Field.MovableObject = null;
-                    Field = Field.Next ?? null;
-                    Field.MovableObject = this;
-                }
-                else
-                {
-                    HasCrashed = true;
-                }
-            }
-            else if (((Switch)Field.Next).CanMoveTo(this))
-            {
-                if (Field.Next.MovableObject == null)
-                {
-                    Field.MovableObject = null;
-                    Field = Field.Next ?? null;
-                    Field.MovableObject = this;
-                }
-                else
-                {
-                    HasCrashed = true;
-                }
-            }
+
+
+            return false;
         }
 
         public override string ToString()

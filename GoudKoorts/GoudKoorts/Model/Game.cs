@@ -19,22 +19,12 @@ namespace GoudKoorts
 
         public Field RiverFirst { get; set; }
 
-       
-
+        public int TotalGold { get; set; }
 
         public Game()
         {
             CreateGame();
-            Cart a = new Cart() { Field = AFirst };
-            BFirst.MovableObject = a;
-            Objects.Add(a);
-            Cart b = new Cart() { Field = BFirst };
-            BFirst.MovableObject = b;
-            Objects.Add(b);
-            Cart c = new Cart() { Field = CFirst };
-            BFirst.MovableObject = c;
-            Objects.Add(c);
-            Boat boat = new Boat() {Field = RiverFirst};
+            Boat boat = new Boat() { Field = RiverFirst };
             RiverFirst.MovableObject = boat;
             Objects.Add(boat);
         }
@@ -166,6 +156,51 @@ namespace GoudKoorts
             foreach (var o in Objects)
             {
                 o.Move();
+            }
+            UpdateTotalGold();
+        }
+
+        private void UpdateTotalGold()
+        {
+            int totalGold = 0;
+            foreach (var o in Objects)
+            {
+                if (o is Boat)
+                {
+                    Boat b = (Boat) o;
+                    totalGold += b.Load;
+                    if (b.Load == 8)
+                    {
+                        totalGold += 10;
+                    }
+                }
+            }
+            this.TotalGold = totalGold;
+        }
+
+        public void SpawnCarts()
+        {
+            Random r = new Random();
+
+            if (r.Next(5) < 1)
+            {
+                Cart a = new Cart() { Field = AFirst };
+                AFirst.MovableObject = a;
+                Objects.Add(a);
+            }
+
+            if (r.Next(5) < 1)
+            {
+                Cart b = new Cart() { Field = BFirst };
+                BFirst.MovableObject = b;
+                Objects.Add(b);
+            }
+
+            if (r.Next(5) < 1)
+            {
+                Cart c = new Cart() { Field = CFirst };
+                CFirst.MovableObject = c;
+                Objects.Add(c);
             }
         }
     }

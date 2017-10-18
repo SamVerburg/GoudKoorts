@@ -14,21 +14,35 @@ namespace GoudKoorts
             if (((River)Field).Quay.MovableObject is Cart)
             {
                 Load++;
-                ((Cart)((River)Field).MovableObject).HasLoad = false;
+                ((Cart)((River)Field).Quay.MovableObject).HasLoad = false;
             }
         }
 
         public override void Move()
         {
-            if (((River)Field).Quay == null || Load == 8)
+            if (Field == null)
             {
-                Field = Field.Next ?? null;
-                Field.MovableObject = null;
-                Field.Next.MovableObject = this;
+                return;
+            }
+
+            if (((River)Field).Quay != null)
+            {
+                if (Load != 8)
+                {
+                    TakeLoad();
+                    return;
+                }
+            }
+
+            Field.MovableObject = null;
+            if (Field.Next != null)
+            {
+                Field = Field.Next;
+                Field.MovableObject = this;
             }
             else
             {
-                TakeLoad();
+                Field = null;
             }
         }
 
