@@ -13,11 +13,18 @@ namespace GoudKoorts
 
         public override void Move()
         {
+            if (Field.Next == null)
+            {
+                return;
+            }
+            
             if (!(Field.Next is Switch))
             {
                 if (Field.Next.MovableObject == null)
                 {
+                    Field.MovableObject = null;
                     Field = Field.Next ?? null;
+                    Field.MovableObject = this;
                 }
                 else
                 {
@@ -28,9 +35,31 @@ namespace GoudKoorts
                     HasCrashed = true;
                 }
             }
-            else if(((Switch)Field.Next).CanMoveTo(this))
+            else if (!((Switch)Field.Next).isConverging())
             {
-                Field = Field.Next;
+                if (Field.Next.MovableObject == null)
+                {
+                    Field.MovableObject = null;
+                    Field = Field.Next ?? null;
+                    Field.MovableObject = this;
+                }
+                else
+                {
+                    HasCrashed = true;
+                }
+            }
+            else if (((Switch)Field.Next).CanMoveTo(this))
+            {
+                if (Field.Next.MovableObject == null)
+                {
+                    Field.MovableObject = null;
+                    Field = Field.Next ?? null;
+                    Field.MovableObject = this;
+                }
+                else
+                {
+                    HasCrashed = true;
+                }
             }
         }
     }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Timers;
+using Timer = System.Threading.Timer;
 
 namespace GoudKoorts
 {
@@ -17,9 +19,19 @@ namespace GoudKoorts
 
         public Field RiverFirst { get; set; }
 
+
         public Game()
         {
             CreateGame();
+            Cart a = new Cart() { Field = AFirst };
+            BFirst.MovableObject = a;
+            Objects.Add(a);
+            Cart b = new Cart() { Field = BFirst };
+            BFirst.MovableObject = b;
+            Objects.Add(b);
+            Cart c = new Cart() { Field = CFirst };
+            BFirst.MovableObject = c;
+            Objects.Add(c);
         }
 
         public void CreateGame()
@@ -40,45 +52,8 @@ namespace GoudKoorts
             currentR = (River)currentR.Next;
             currentR.Next = new River();
 
-            //aanmaken van rails
             AFirst = new Rail();
-            BFirst = new Rail();
-
             Field currentA = AFirst;
-            Field currentB = BFirst;
-
-            for (int i = 0; i < 3; i++)
-            {
-                currentA.Next = new Rail();
-                currentA = currentA.Next;
-                currentB.Next = new Rail();
-                currentB = currentB.Next;
-            }
-
-            Switch switch1 = new Switch
-            {
-                Upper = (Rail)currentA,
-                Lower = (Rail)currentB,
-                State = State.FROMLOWER
-            };
-
-            currentA.Next = switch1;
-            currentB.Next = switch1;
-            switch1.Next = new Rail();
-
-            Switch switch2 = new Switch
-            {
-                Upper = new Rail(),
-                Lower = new Rail(),
-                State = State.TOUPPER
-            };
-
-            switch2.Upper.printValue = "╔";
-            switch2.Lower.printValue = "╚";
-            switch2.Next = switch2.Upper;
-            switch1.Next.Next = switch2;
-
-            currentA = switch2.Upper;
 
             for (int i = 0; i < 4; i++)
             {
@@ -86,76 +61,95 @@ namespace GoudKoorts
                 currentA = currentA.Next;
             }
 
-            switch2.Lower.Next = new Rail();
-            
+            BFirst = new Rail();
+            Field currentB = BFirst;
+
+            for (int i = 0; i < 4; i++)
+            {
+                currentB.Next = new Rail();
+                currentB = currentB.Next;
+            }
+
             CFirst = new Rail();
             Field currentC = CFirst;
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
                 currentC.Next = new Rail();
                 currentC = currentC.Next;
             }
 
-            Switch switch3 = new Switch()
-            {
-                Upper = (Rail)switch2.Lower.Next,
-                Lower = (Rail)currentC,
-                State = State.FROMLOWER
-            };
+            Switch switch1 = new Switch { State = State.FROMLOWER, Upper = (Rail)currentA, Lower = (Rail)currentB, Next = new Rail() };
+            currentA.Next = switch1;
+            currentB.Next = switch1;
 
-            currentC.Next = switch3;
+            Switch switch2 = new Switch { State = State.TOUPPER, Upper = new Rail(), Lower = new Rail() };
+            switch2.Next = switch2.Upper;
+
+            switch1.Next.Next = switch2;
+            switch2.Lower.Next = new Rail();
+
+            Switch switch3 = new Switch { State = State.FROMLOWER, Upper = (Rail)switch2.Lower.Next, Lower = (Rail)currentC, Next = new Rail() };
             switch2.Lower.Next.Next = switch3;
+            currentC.Next = switch3;
 
-            Switch switch4 = new Switch()
+            Switch switch4 = new Switch { State = State.TOLOWER, Upper = new Rail(), Lower = new Rail() };
+            switch4.Next = switch4.Lower;
+            switch4.Upper.Next = new Rail();
+
+            switch3.Next.Next = switch4;
+
+            Field currentD = switch2.Upper;
+
+            for (int i = 0; i < 4; i++)
             {
-                State = State.TOLOWER,
-                Upper = new Rail(),
-                Lower = new Rail(),
-            };
+                currentD.Next = new Rail();
+                currentD = currentD.Next;
+            }
 
-            switch3.Next = new Rail { Next = switch4 };
-            currentC = switch4.Lower;
+            Switch switch5 = new Switch { State = State.FROMLOWER, Upper = (Rail)currentD, Lower = (Rail)switch4.Upper.Next, Next = new Rail() };
+            currentD.Next = switch5;
+            switch4.Upper.Next.Next = switch5;
+
+            Field currentE = switch5.Next;
+            for (int i = 0; i < 7; i++)
+            {
+                currentE.Next = new Rail();
+                currentE = currentE.Next;
+            }
+
+            quayField.Quay = currentE;
+
+            for (int i = 0; i < 9; i++)
+            {
+                currentE.Next = new Rail();
+                currentE = currentE.Next;
+            }
+
+            Field CurrentF = switch4.Lower;
             for (int i = 0; i < 6; i++)
             {
-                currentC.Next = new Rail();
-                currentC = currentC.Next;
+                CurrentF.Next = new Rail();
+                CurrentF = CurrentF.Next;
             }
 
             for (int i = 0; i < 8; i++)
             {
-                currentC.Next = new Shunter();
-                currentC = currentC.Next;
+                CurrentF.Next = new Shunter();
+                CurrentF = CurrentF.Next;
             }
 
-            switch4.Upper.Next = new Rail();
-
+            switch2.Upper.printValue = "╔";
+            switch2.Lower.printValue = "╚";
             switch4.Upper.printValue = "╔";
             switch4.Lower.printValue = "╚";
+        }
 
-            Switch switch5 = new Switch
+        public void MoveAllObjects()
+        {
+            foreach (var o in Objects)
             {
-                Lower = (Rail)switch4.Upper.Next,
-                Upper = (Rail)currentA,
-                State = State.FROMUPPER
-            };
-
-            switch5.Upper.Next = switch5;
-            switch5.Lower.Next = switch5;
-            
-            currentB = switch5;
-            for (int i = 0; i < 7; i++)
-            {
-                currentB.Next = new Rail();
-                currentB = currentB.Next;
-            }
-
-            quayField.Quay = currentB;
-
-            for (int i = 0; i < 9; i++)
-            {
-                currentB.Next = new Rail();
-                currentB = currentB.Next;
+                o.Move();
             }
         }
     }

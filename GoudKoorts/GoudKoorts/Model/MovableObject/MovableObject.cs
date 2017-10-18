@@ -7,17 +7,7 @@ namespace GoudKoorts
 {
     public abstract class MovableObject
     {
-        public Field Field
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+        public Field Field { get; set; }
 
         public abstract void Move();
     }

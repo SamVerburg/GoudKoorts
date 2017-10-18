@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Threading;
 
 namespace GoudKoorts
 {
@@ -16,7 +17,12 @@ namespace GoudKoorts
 
         public GameController()
         {
-            OutputView.PrintGame(GetPlayingField());
+            while (true)
+            {
+                Thread.Sleep(500);
+                Game.MoveAllObjects();
+                OutputView.PrintGame(GetPlayingField());
+            }
         }
 
         private string[,] GetPlayingField()
@@ -28,7 +34,6 @@ namespace GoudKoorts
                     playingField[x, y] = " ";
                 }
             }
-
 
             int counter = 0;
             int row = 1;
@@ -43,7 +48,7 @@ namespace GoudKoorts
             InsertUntilDivergingSwitch(Game.AFirst, 0, 5);
             InsertUntilDivergingSwitch(Game.BFirst, 0, 7);
             InsertUntilDivergingSwitch(Game.CFirst, 0, 9);
-
+            
             return playingField;
         }
 
@@ -88,7 +93,14 @@ namespace GoudKoorts
             playingField[row, counter] = f.ToString();
 
             int oldCounter = counter;
-            playingField[row - 1, counter++] = f.Upper.printValue;
+            if (f.Upper.MovableObject != null)
+            {
+                playingField[row - 1, counter++] = f.Upper.ToString();
+            }
+            else
+            {
+                playingField[row - 1, counter++] = f.Upper.printValue;
+            }
 
             for (Field r = f.Upper.Next; r != null; r = r.Next)
             {
@@ -107,7 +119,16 @@ namespace GoudKoorts
             }
 
             counter = oldCounter;
-            playingField[row + 1, counter++] = f.Lower.printValue;
+
+            if (f.Lower.MovableObject != null)
+            {
+                playingField[row + 1, counter++] = f.Lower.ToString();
+            }
+            else
+            {
+                playingField[row + 1, counter++] = f.Lower.printValue;
+            }
+            
             for (Field r = f.Lower.Next; r != null; r = r.Next)
             {
                 playingField[row+1, counter] = r.ToString();
@@ -124,6 +145,11 @@ namespace GoudKoorts
                     break;
                 }
             }
+        }
+
+        private void AddShunter()
+        {
+            
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace GoudKoorts
@@ -56,6 +57,10 @@ namespace GoudKoorts
 
         public override string ToString()
         {
+            if (this.MovableObject != null)
+            {
+                return "#";
+            }
             switch (State)
             {
                 case State.FROMLOWER:

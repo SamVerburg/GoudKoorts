@@ -9,8 +9,14 @@ namespace GoudKoorts
     public class Rail : Field
     {
         public string printValue { get; set; }
+
         public override string ToString()
         {
+            if (this.MovableObject != null)
+            {
+                return "#";
+            }
+
             if (this.Next is Switch)
             {
                 Switch s = (Switch) this.Next;
