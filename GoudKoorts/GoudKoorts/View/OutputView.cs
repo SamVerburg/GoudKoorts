@@ -19,6 +19,14 @@ namespace GoudKoorts
                 }
                 for (int y = 0; y < playingField.GetLength(1); y++)
                 {
+                    if (x == 9 && y <= 9)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
                     Console.Write(playingField[x, y]);
                 }
                 Console.WriteLine();

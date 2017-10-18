@@ -11,7 +11,7 @@ namespace GoudKoorts
         {
             if (this.MovableObject != null)
             {
-                return "#";
+                return MovableObject.ToString();
             }
             return "═";
         }

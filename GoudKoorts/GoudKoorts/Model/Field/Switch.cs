@@ -37,7 +37,6 @@ namespace GoudKoorts
             {
                 return;
             }
-
             switch (State)
             {
                 case State.FROMLOWER:
@@ -48,9 +47,11 @@ namespace GoudKoorts
                     return;
                 case State.TOLOWER:
                     State = State.TOUPPER;
+                    this.Next = Upper;
                     return;
                 case State.TOUPPER:
                     State = State.TOLOWER;
+                    this.Next = Lower;
                     return;
             }
         }
@@ -59,7 +60,7 @@ namespace GoudKoorts
         {
             if (this.MovableObject != null)
             {
-                return "#";
+                return MovableObject.ToString();
             }
             switch (State)
             {

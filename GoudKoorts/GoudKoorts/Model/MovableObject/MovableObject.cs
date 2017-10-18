@@ -10,5 +10,7 @@ namespace GoudKoorts
         public Field Field { get; set; }
 
         public abstract void Move();
+
+        public abstract override string ToString();
     }
 }

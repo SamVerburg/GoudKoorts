@@ -34,6 +34,9 @@ namespace GoudKoorts
             Cart c = new Cart() { Field = CFirst };
             BFirst.MovableObject = c;
             Objects.Add(c);
+            Boat boat = new Boat() {Field = RiverFirst};
+            RiverFirst.MovableObject = boat;
+            Objects.Add(boat);
         }
 
         public void CreateGame()
@@ -156,7 +159,6 @@ namespace GoudKoorts
             ((Rail)switch5.Next.Next.Next).printValue = "║";
             ((Rail)switch5.Next.Next.Next.Next).printValue = "║";
             ((Rail)switch5.Next.Next.Next.Next.Next).printValue = "╗";
-
         }
 
         public void MoveAllObjects()

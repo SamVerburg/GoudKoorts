@@ -45,10 +45,10 @@ namespace GoudKoorts
                 counter++;
             }
 
-            InsertUntilDivergingSwitch(Game.AFirst, 0, 5);
-            InsertUntilDivergingSwitch(Game.BFirst, 0, 7);
-            InsertUntilDivergingSwitch(Game.CFirst, 0, 9);
-            // printMatrix();
+            InsertUntilDivergingSwitch(Game.AFirst, 0, 4);
+            InsertUntilDivergingSwitch(Game.BFirst, 0, 6);
+            InsertUntilDivergingSwitch(Game.CFirst, 0, 8);
+            //printMatrix();
             return playingField;
         }
 
@@ -60,7 +60,7 @@ namespace GoudKoorts
             {
                 playingField[row, counter] = r.ToString();
 
-                if (row == 6 && counter == 12)
+                if (row == 5 && counter == 12)
                 {
                     AddQuayRow(r, counter, row);
                     break;
@@ -118,15 +118,12 @@ namespace GoudKoorts
             for (Field r = f.Upper.Next; r != null; r = r.Next)
             {
                 playingField[row - 1, counter] = r.ToString();
-
-
-
+                
                 counter++;
                 if (counter > 12)
                 {
                     break;
                 }
-
 
                 if (r.Next is Switch)
                 {
@@ -150,9 +147,8 @@ namespace GoudKoorts
             for (Field r = f.Lower.Next; r != null; r = r.Next)
             {
                 playingField[row + 1, counter] = r.ToString();
-
-
-                if (row == 8 && counter == 12)
+                
+                if (row == 7 && counter == 12)
                 {
                     AddShunter(r, counter, row);
                     break;

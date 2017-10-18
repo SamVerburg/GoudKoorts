@@ -7,7 +7,7 @@ namespace GoudKoorts
 {
     public class Cart : MovableObject
     {
-        public bool HasLoad { get; set; }
+        public bool HasLoad { get; set; } = true;
 
         public bool HasCrashed { get; set; }
 
@@ -15,6 +15,10 @@ namespace GoudKoorts
         {
             if (Field.Next == null)
             {
+                if (!(this.Field is Shunter))
+                {
+                    this.Field.MovableObject = null;
+                }
                 return;
             }
             
@@ -61,6 +65,19 @@ namespace GoudKoorts
                     HasCrashed = true;
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            if (HasLoad)
+            {
+                return "L";
+            }
+            else if (HasCrashed)
+            {
+                return "X";
+            }
+            return "U";
         }
     }
 }

@@ -11,7 +11,11 @@ namespace GoudKoorts
 
         public override string ToString()
         {
-            if (Quay == null)
+            if (this.MovableObject != null)
+            {
+                return MovableObject.ToString();
+            }
+            else if (Quay == null)
             {
                 return " ";
             }

@@ -23,11 +23,18 @@ namespace GoudKoorts
             if (((River)Field).Quay == null || Load == 8)
             {
                 Field = Field.Next ?? null;
+                Field.MovableObject = null;
+                Field.Next.MovableObject = this;
             }
             else
             {
                 TakeLoad();
             }
+        }
+
+        public override string ToString()
+        {
+            return "B";
         }
     }
 }
