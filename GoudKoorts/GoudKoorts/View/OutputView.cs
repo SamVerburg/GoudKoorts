@@ -9,6 +9,7 @@ namespace GoudKoorts
     {
         public void PrintGame(string[,] playingField)
         {
+            Console.Clear();
             Console.BackgroundColor = ConsoleColor.Blue;
             for (int x = 0; x < playingField.GetLength(0); x++)
             {
