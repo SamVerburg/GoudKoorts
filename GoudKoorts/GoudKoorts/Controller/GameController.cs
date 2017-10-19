@@ -15,9 +15,6 @@ namespace GoudKoorts
 
         public Game Game { get; set; } = new Game();
 
-        public Boolean OnLockdown { get; set; }
-
-
         public GameController()
         {
             Thread thread = new Thread(PlayGame);
@@ -31,19 +28,20 @@ namespace GoudKoorts
                 int threadTimer = 500 + (int)(1000 / Math.Sqrt(Game.TotalGold + 1));
 
                 //Moving, lockdown = true
-                OnLockdown = true;
-                OutputPrint(OnLockdown);
+                Game.IsLocked = true;
+                OutputPrint(Game.IsLocked);
+                
                 Game.MoveAllObjects();
                 Game.CheckSpawnBoat();
                 Game.SpawnCarts();
-                Thread.Sleep(3000);
+                Thread.Sleep(500);
 
                 //Not moving, lockdown = false
-                OnLockdown = false;
-                OutputPrint(OnLockdown);
+                Game.IsLocked = false;
+                OutputPrint(Game.IsLocked);
                 Thread.Sleep(threadTimer);
             }
-            OutputPrint(OnLockdown);
+            OutputPrint(Game.IsLocked);
             OutputView.ShowLoseMessage(Game.TotalGold);
         }
 
@@ -216,7 +214,7 @@ namespace GoudKoorts
             }
         }
 
-        public void OutputPrint(Boolean OnLockdown)
+        public void OutputPrint(bool OnLockdown)
         {
             OutputView.PrintGame(GetPlayingField(), Game.TotalGold, OnLockdown);
         }

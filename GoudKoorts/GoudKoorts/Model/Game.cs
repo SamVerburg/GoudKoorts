@@ -11,7 +11,10 @@ namespace GoudKoorts
     {
         public List<MovableObject> Objects { get; set; } = new List<MovableObject>();
 
-        public Switch[] switches { get; set; } = new Switch[5];
+        public Switch[] Switches { get; set; } = new Switch[5];
+
+        public bool IsLocked { get; set; }
+
         public bool IsPlaying { get; set; } = true;
 
         public Field AFirst { get; set; }
@@ -31,7 +34,6 @@ namespace GoudKoorts
             RiverFirst.MovableObject = boat;
             Objects.Insert(0, boat);
         }
-
 
         private Field MakeMultipleLinks(Field field, int amount)
         {
@@ -81,7 +83,7 @@ namespace GoudKoorts
 
         public void SwitchSwitch(int nr)
         {
-            switches[nr].SwitchState();
+            Switches[nr].SwitchState();
         }
 
         public void CheckSpawnBoat()
@@ -240,11 +242,11 @@ namespace GoudKoorts
             ((Rail)BFirst).printValue = "B";
             ((Rail)CFirst).printValue = "C";
 
-            switches[0] = switch1;
-            switches[1] = switch2;
-            switches[2] = switch3;
-            switches[3] = switch4;
-            switches[4] = switch5;
+            Switches[0] = switch1;
+            Switches[1] = switch2;
+            Switches[2] = switch3;
+            Switches[3] = switch4;
+            Switches[4] = switch5;
         }
     }
 }

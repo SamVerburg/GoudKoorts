@@ -18,17 +18,11 @@ namespace GoudKoorts
 
         private void GetInputs()
         {
-            while (true)
+            while (GameController.Game.IsPlaying)
             {
-                if (!GameController.Game.IsPlaying)
+                if (!GameController.Game.IsLocked)
                 {
-                    return;
-                }
-                if (!GameController.OnLockdown)
-                {
-                    GameController.OutputPrint(GameController.OnLockdown);
                     GetPlayerInput();
-
                 }
             }
         }
