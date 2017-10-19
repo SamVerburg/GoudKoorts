@@ -127,21 +127,22 @@ namespace GoudKoorts
         {
             Random r = new Random();
 
-            if (r.Next(10) < 1)
+            int randomInt = r.Next(10);
+            if (randomInt == 1)
             {
                 Cart a = new Cart() { Field = AFirst.Next };
                 AFirst.Next.MovableObject = a;
                 Objects.Add(a);
             }
 
-            if (r.Next(10) < 1)
+            if (randomInt == 2)
             {
                 Cart b = new Cart() { Field = BFirst.Next };
                 BFirst.Next.MovableObject = b;
                 Objects.Add(b);
             }
 
-            if (r.Next(10) < 1)
+            if (randomInt == 3)
             {
                 Cart c = new Cart() { Field = CFirst.Next };
                 CFirst.Next.MovableObject = c;

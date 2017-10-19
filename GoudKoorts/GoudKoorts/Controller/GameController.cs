@@ -34,7 +34,7 @@ namespace GoudKoorts
                 Game.MoveAllObjects();
                 Game.CheckSpawnBoat();
                 Game.SpawnCarts();
-                Thread.Sleep(500);
+                Thread.Sleep(300);
 
                 //Not moving, lockdown = false
                 Game.IsLocked = false;
@@ -81,7 +81,7 @@ namespace GoudKoorts
                 {
                     if (f.Quay != null)
                     {
-
+                        
                     }
                     else if (f.Next != null)
                     {
