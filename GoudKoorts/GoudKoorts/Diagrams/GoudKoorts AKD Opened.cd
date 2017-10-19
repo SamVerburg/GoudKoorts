@@ -180,7 +180,7 @@
     <Position X="0.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACAAAAACAAAAACAAAAAAAAAIAAAA=</HashCode>
-      <FileName>State.cs</FileName>
+      <FileName>Model\State.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
