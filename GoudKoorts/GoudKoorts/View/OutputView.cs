@@ -14,29 +14,14 @@ namespace GoudKoorts
 
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Blue;
-
-            //WATER
-
-            bool after = false;
-            if (playingField[1, 11].Equals("B") || playingField[1, 12].Equals("B"))
-            {
-                after = true;
-            }
-
-            for (int x = 0; x < 2; x++)
-            {
-                for (int y = 0; y < playingField.GetLength(1); y++)
-                {
-                    Console.Write(playingField[x, y]);
-                }
-                Console.WriteLine();
-            }
-
-            Console.BackgroundColor = ConsoleColor.Black;
-
+            
             //TRACK
-            for (int x = 2; x < playingField.GetLength(0); x++)
+            for (int x = 0; x < playingField.GetLength(0); x++)
             {
+                if (x == 2)
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
                 for (int y = 0; y < playingField.GetLength(1); y++)
                 {
                     if (x == 9 && y <= 9)
