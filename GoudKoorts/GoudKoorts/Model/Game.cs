@@ -225,22 +225,22 @@ namespace GoudKoorts
 
             CurrentF = MakeMultipleLinks(CurrentF, 7);
 
-            switch2.Upper.printValue = "╔";
-            switch2.Lower.printValue = "╚";
-            switch4.Upper.printValue = "╔";
-            switch4.Lower.printValue = "╚";
-            ((Rail)switch4.Lower.Next.Next.Next).printValue = "╗";
-            ((Rail)switch4.Lower.Next.Next.Next.Next).printValue = "╝";
+            switch2.Upper.PrintValue = "╔";
+            switch2.Lower.PrintValue = "╚";
+            switch4.Upper.PrintValue = "╔";
+            switch4.Lower.PrintValue = "╚";
+            ((Rail)switch4.Lower.Next.Next.Next).PrintValue = "╗";
+            ((Rail)switch4.Lower.Next.Next.Next.Next).PrintValue = "╝";
 
             //6-12 en 3-12
-            ((Rail)switch5.Next.Next).printValue = "╝";
-            ((Rail)switch5.Next.Next.Next).printValue = "║";
-            ((Rail)switch5.Next.Next.Next.Next).printValue = "║";
-            ((Rail)switch5.Next.Next.Next.Next.Next).printValue = "╗";
+            ((Rail)switch5.Next.Next).PrintValue = "╝";
+            ((Rail)switch5.Next.Next.Next).PrintValue = "║";
+            ((Rail)switch5.Next.Next.Next.Next).PrintValue = "║";
+            ((Rail)switch5.Next.Next.Next.Next.Next).PrintValue = "╗";
 
-            ((Rail)AFirst).printValue = "A";
-            ((Rail)BFirst).printValue = "B";
-            ((Rail)CFirst).printValue = "C";
+            ((Rail)AFirst).PrintValue = "A";
+            ((Rail)BFirst).PrintValue = "B";
+            ((Rail)CFirst).PrintValue = "C";
 
             Switches[0] = switch1;
             Switches[1] = switch2;

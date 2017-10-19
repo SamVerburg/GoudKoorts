@@ -86,7 +86,7 @@
   <Class Name="GoudKoorts.River">
     <Position X="2.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAEAAAAAAAAgAAAA=</HashCode>
       <FileName>Model\Field\River.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -127,7 +127,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>gAAAEAAAAAAEAAABAAIYAAEAAAgAAAAAAAAAAAAAAQA=</HashCode>
+      <HashCode>gAAAEAAgAAAEAAABAAIYAAEAAAgAAAAAAAAAAAAAAQA=</HashCode>
       <FileName>Controller\GameController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -165,7 +165,7 @@
   <Class Name="GoudKoorts.Rail">
     <Position X="5.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Field\Rail.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -177,7 +177,7 @@
     </TypeIdentifier>
   </Class>
   <Enum Name="GoudKoorts.State">
-    <Position X="1.25" Y="7.25" Width="1.5" />
+    <Position X="0.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACAAAAACAAAAACAAAAAAAAAIAAAA=</HashCode>
       <FileName>State.cs</FileName>

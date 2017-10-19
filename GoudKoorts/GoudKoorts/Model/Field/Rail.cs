@@ -8,7 +8,7 @@ namespace GoudKoorts
 {
     public class Rail : Field
     {
-        public string printValue { get; set; }
+        public string PrintValue { get; set; }
 
         public override string ToString()
         {
@@ -16,9 +16,9 @@ namespace GoudKoorts
             {
                 return MovableObject.ToString();
             }
-            if (printValue != null)
+            if (PrintValue != null)
             {
-                return printValue;
+                return PrintValue;
             }
 
             if (this.Next is Switch)

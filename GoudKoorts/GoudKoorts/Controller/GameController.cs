@@ -25,12 +25,12 @@ namespace GoudKoorts
         {
             while (Game.IsPlaying)
             {
-                int threadTimer = 500 + (int)(1000 / Math.Sqrt(Game.TotalGold + 1));
+                int threadTimer = 300 + (int)(300 / Math.Sqrt(Game.TotalGold + 1));
 
                 //Moving, lockdown = true
                 Game.IsLocked = true;
                 OutputPrint(Game.IsLocked);
-                
+
                 Game.MoveAllObjects();
                 Game.CheckSpawnBoat();
                 Game.SpawnCarts();
@@ -55,21 +55,59 @@ namespace GoudKoorts
                 }
             }
 
-            int counter = 0;
-            int row = 1;
-
-            //River
-            for (Field f = Game.RiverFirst; f != null; f = f.Next)
-            {
-                playingField[row, counter] = f.ToString();
-                counter++;
-            }
-
+            InsertWater();
             InsertUntilDivergingSwitch(Game.AFirst, 0, 4);
             InsertUntilDivergingSwitch(Game.BFirst, 0, 6);
             InsertUntilDivergingSwitch(Game.CFirst, 0, 8);
 
             return playingField;
+        }
+
+        private void InsertWater()
+        {
+            int counter = 0;
+            int row = 1;
+
+            Boat b = null;
+            bool QuayFound = false;
+            //River
+            for (River f = (River)Game.RiverFirst; f != null; f = (River)f.Next)
+            {
+                if (f.MovableObject is Boat)
+                {
+                    b = (Boat)f.MovableObject;
+                }
+                else if (b != null && !QuayFound)
+                {
+                    if (f.Quay != null)
+                    {
+
+                    }
+                    else if (f.Next != null)
+                    {
+                        if (((River)f.Next).Quay != null)
+                        {
+                            f.PrintValue = ">";
+                            QuayFound = true;
+                        }
+                        else
+                        {
+                            f.PrintValue = "-";
+                        }
+                    }
+                    else
+                    {
+                        f.PrintValue = ">";
+                    }
+                }
+                else
+                {
+                    f.PrintValue = null;
+                }
+                playingField[row, counter] = f.ToString();
+
+                counter++;
+            }
         }
 
         private void InsertUntilDivergingSwitch(Field f, int counter, int row)
@@ -130,7 +168,7 @@ namespace GoudKoorts
             }
             else
             {
-                playingField[row - 1, counter++] = f.Upper.printValue;
+                playingField[row - 1, counter++] = f.Upper.PrintValue;
             }
 
             for (Field r = f.Upper.Next; r != null; r = r.Next)
@@ -159,7 +197,7 @@ namespace GoudKoorts
             }
             else
             {
-                playingField[row + 1, counter++] = f.Lower.printValue;
+                playingField[row + 1, counter++] = f.Lower.PrintValue;
             }
 
             for (Field r = f.Lower.Next; r != null; r = r.Next)

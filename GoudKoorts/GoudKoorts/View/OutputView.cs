@@ -8,25 +8,42 @@ namespace GoudKoorts
 {
     public class OutputView
     {
-        
+
         public void PrintGame(string[,] playingField, int totalGold, Boolean OnLockdown)
         {
-            
+
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Blue;
-            for (int x = 0; x < playingField.GetLength(0); x++)
+
+            //WATER
+
+            bool after = false;
+            if (playingField[1, 11].Equals("B") || playingField[1, 12].Equals("B"))
             {
-                if (x == 2)
+                after = true;
+            }
+
+            for (int x = 0; x < 2; x++)
+            {
+                for (int y = 0; y < playingField.GetLength(1); y++)
                 {
-                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.Write(playingField[x, y]);
                 }
+                Console.WriteLine();
+            }
+
+            Console.BackgroundColor = ConsoleColor.Black;
+
+            //TRACK
+            for (int x = 2; x < playingField.GetLength(0); x++)
+            {
                 for (int y = 0; y < playingField.GetLength(1); y++)
                 {
                     if (x == 9 && y <= 9)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                     }
-                    else if  (x == 5 && y == 4 || x == 5 && y == 10 || x == 5 && y == 6 || x == 7 && y == 9 || x == 7 && y == 7)
+                    else if (x == 5 && y == 4 || x == 5 && y == 10 || x == 5 && y == 6 || x == 7 && y == 9 || x == 7 && y == 7)
                     {
                         if (OnLockdown)
                         {

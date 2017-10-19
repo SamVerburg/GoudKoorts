@@ -76,7 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Diagrams\GoudKoorts AKD.cd" />
+    <None Include="Diagrams\GoudKoorts AKD Closed.cd" />
+    <None Include="Diagrams\GoudKoorts AKD Opened.cd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
