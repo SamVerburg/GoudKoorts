@@ -20,8 +20,16 @@ namespace GoudKoorts
         {
             while (true)
             {
-                GetPlayerInput();
-                GameController.OutputPrint();
+                if (!GameController.Game.IsPlaying)
+                {
+                    return;
+                }
+                if (!GameController.OnLockdown)
+                {
+                    GameController.OutputPrint(GameController.OnLockdown);
+                    GetPlayerInput();
+
+                }
             }
         }
 

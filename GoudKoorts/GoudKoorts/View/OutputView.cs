@@ -8,7 +8,7 @@ namespace GoudKoorts
 {
     public class OutputView
     {
-        public void PrintGame(string[,] playingField, int totalGold)
+        public void PrintGame(string[,] playingField, int totalGold, Boolean OnLockdown)
         {
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Blue;
@@ -23,6 +23,13 @@ namespace GoudKoorts
                     if (x == 9 && y <= 9)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    }
+                    else if  (x == 5 && y == 4 || x == 5 && y == 10 || x == 5 && y == 6 || x == 7 && y == 9 || x == 7 && y == 7)
+                    {
+                        if (OnLockdown )
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        }
                     }
                     else
                     {
