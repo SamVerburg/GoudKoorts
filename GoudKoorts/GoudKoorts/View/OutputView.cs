@@ -33,6 +33,7 @@ namespace GoudKoorts
                 Console.WriteLine();
             }
             Console.WriteLine("Goud: " + totalGold);
+            Console.WriteLine("Knoppen: 1,2,3,4,5");
         }
 
         public void ShowLoseMessage(int TotalGold)
