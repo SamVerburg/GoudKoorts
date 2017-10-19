@@ -10,6 +10,8 @@ namespace GoudKoorts
     public class Game
     {
         public List<MovableObject> Objects { get; set; } = new List<MovableObject>();
+
+        public Switch[] switches { get; set; } = new Switch[5];
         public bool IsPlaying { get; set; } = true;
 
         public Field AFirst { get; set; }
@@ -27,129 +29,31 @@ namespace GoudKoorts
             CreateGame();
             Boat boat = new Boat() { Field = RiverFirst };
             RiverFirst.MovableObject = boat;
-            Objects.Add(boat);
+            Objects.Insert(0, boat);
         }
 
-        public void CreateGame()
+
+        private Field MakeMultipleLinks(Field field, int amount)
         {
-            //aanmaken van rivier
-            RiverFirst = new River();
-            River currentR = (River)RiverFirst;
-
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < amount; i++)
             {
-                currentR.Next = new River();
-                currentR = (River)currentR.Next;
+                if (field is River)
+                {
+                    field.Next = new River();
+                    field = (River)field.Next;
+                }
+                else if (field is Rail)
+                {
+                    field.Next = new Rail();
+                    field = (Rail)field.Next;
+                }
+                else if (field is Shunter)
+                {
+                    field.Next = new Shunter();
+                    field = (Shunter)field.Next;
+                }
             }
-
-            River quayField = currentR;
-
-            currentR.Next = new River();
-            currentR = (River)currentR.Next;
-            currentR.Next = new River();
-
-            AFirst = new Rail();
-            Field currentA = AFirst;
-
-            for (int i = 0; i < 4; i++)
-            {
-                currentA.Next = new Rail();
-                currentA = currentA.Next;
-            }
-
-            BFirst = new Rail();
-            Field currentB = BFirst;
-
-            for (int i = 0; i < 4; i++)
-            {
-                currentB.Next = new Rail();
-                currentB = currentB.Next;
-            }
-
-            CFirst = new Rail();
-            Field currentC = CFirst;
-
-            for (int i = 0; i < 7; i++)
-            {
-                currentC.Next = new Rail();
-                currentC = currentC.Next;
-            }
-
-            Switch switch1 = new Switch { State = State.FROMLOWER, Upper = (Rail)currentA, Lower = (Rail)currentB, Next = new Rail() };
-            currentA.Next = switch1;
-            currentB.Next = switch1;
-
-            Switch switch2 = new Switch { State = State.TOUPPER, Upper = new Rail(), Lower = new Rail() };
-            switch2.Next = switch2.Upper;
-
-            switch1.Next.Next = switch2;
-            switch2.Lower.Next = new Rail();
-
-            Switch switch3 = new Switch { State = State.FROMLOWER, Upper = (Rail)switch2.Lower.Next, Lower = (Rail)currentC, Next = new Rail() };
-            switch2.Lower.Next.Next = switch3;
-            currentC.Next = switch3;
-
-            Switch switch4 = new Switch { State = State.TOLOWER, Upper = new Rail(), Lower = new Rail() };
-            switch4.Next = switch4.Lower;
-            switch4.Upper.Next = new Rail();
-
-            switch3.Next.Next = switch4;
-
-            Field currentD = switch2.Upper;
-
-            for (int i = 0; i < 4; i++)
-            {
-                currentD.Next = new Rail();
-                currentD = currentD.Next;
-            }
-
-            Switch switch5 = new Switch { State = State.FROMUPPER, Upper = (Rail)currentD, Lower = (Rail)switch4.Upper.Next, Next = new Rail() };
-            currentD.Next = switch5;
-            switch4.Upper.Next.Next = switch5;
-
-            Field currentE = switch5.Next;
-            //Rails vanaf switch 5.next tot kade
-            for (int i = 0; i < 7; i++)
-            {
-                currentE.Next = new Rail();
-                currentE = currentE.Next;
-            }
-
-            //Kade wordt gedefinieert
-            quayField.Quay = currentE;
-
-            //Rest van de 9 rails na kade
-            for (int i = 0; i < 9; i++)
-            {
-                currentE.Next = new Rail();
-                currentE = currentE.Next;
-            }
-
-            Field CurrentF = switch4.Lower;
-            for (int i = 0; i < 6; i++)
-            {
-                CurrentF.Next = new Rail();
-                CurrentF = CurrentF.Next;
-            }
-
-            for (int i = 0; i < 8; i++)
-            {
-                CurrentF.Next = new Shunter();
-                CurrentF = CurrentF.Next;
-            }
-
-            switch2.Upper.printValue = "╔";
-            switch2.Lower.printValue = "╚";
-            switch4.Upper.printValue = "╔";
-            switch4.Lower.printValue = "╚";
-            ((Rail)switch4.Lower.Next.Next.Next).printValue = "╗";
-            ((Rail)switch4.Lower.Next.Next.Next.Next).printValue = "╝";
-
-            //6-12 en 3-12
-            ((Rail)switch5.Next.Next).printValue = "╝";
-            ((Rail)switch5.Next.Next.Next).printValue = "║";
-            ((Rail)switch5.Next.Next.Next.Next).printValue = "║";
-            ((Rail)switch5.Next.Next.Next.Next.Next).printValue = "╗";
+            return field;
         }
 
         public void MoveAllObjects()
@@ -160,10 +64,6 @@ namespace GoudKoorts
                 if (o is Cart)
                 {
                     CheckCrashed((Cart)o);
-                }
-                else if (o is Boat)
-                {
-                    CheckSpawnBoat((Boat)o);
                 }
             }
             UpdateTotalGold();
@@ -179,16 +79,27 @@ namespace GoudKoorts
             return false;
         }
 
-        private void CheckSpawnBoat(Boat b)
+        public void SwitchSwitch(int nr)
         {
-            if (b.Field == null) return;
-            if(((River)b.Field).Quay == null) return;
-            
-            if (b.Load == 8 && ((River)b.Field).MovableObject == b)
+            switches[nr].SwitchState();
+        }
+
+        public void CheckSpawnBoat()
+        {
+            foreach (var o in Objects)
             {
-                Boat boat = new Boat() { Field = RiverFirst };
-                RiverFirst.MovableObject = boat;
-                Objects.Add(boat);
+                if (o is Boat && o.Field != null)
+                {
+                    Boat b = (Boat)o;
+                    if (((River)b.Field).Quay == null) return;
+                    if (b.Load == 8 && ((River)b.Field).MovableObject == b)
+                    {
+                        Boat boat = new Boat() { Field = RiverFirst };
+                        RiverFirst.MovableObject = boat;
+                        Objects.Insert(0, boat);
+                        return;
+                    }
+                }
             }
         }
 
@@ -214,26 +125,126 @@ namespace GoudKoorts
         {
             Random r = new Random();
 
-            /*if (r.Next(5) < 1)
+            if (r.Next(10) < 1)
             {
-                Cart a = new Cart() { Field = AFirst };
-                AFirst.MovableObject = a;
+                Cart a = new Cart() { Field = AFirst.Next };
+                AFirst.Next.MovableObject = a;
                 Objects.Add(a);
-            }*/
+            }
 
-            if (r.Next(5) < 1)
+            if (r.Next(10) < 1)
             {
-                Cart b = new Cart() { Field = BFirst };
-                BFirst.MovableObject = b;
+                Cart b = new Cart() { Field = BFirst.Next };
+                BFirst.Next.MovableObject = b;
                 Objects.Add(b);
             }
 
-           /* if (r.Next(5) < 1)
+            if (r.Next(10) < 1)
             {
-                Cart c = new Cart() { Field = CFirst };
-                CFirst.MovableObject = c;
+                Cart c = new Cart() { Field = CFirst.Next };
+                CFirst.Next.MovableObject = c;
                 Objects.Add(c);
-            }*/
+            }
+        }
+
+        public void CreateGame()
+        {
+            //aanmaken van rivier
+            RiverFirst = new River();
+            River currentR = (River)RiverFirst;
+
+            currentR = (River)MakeMultipleLinks(currentR, 10);
+
+            River quayField = currentR;
+
+            currentR.Next = new River();
+            currentR = (River)currentR.Next;
+            currentR.Next = new River();
+
+            AFirst = new Rail();
+            Field currentA = AFirst;
+
+            currentA = MakeMultipleLinks(currentA, 4);
+
+            BFirst = new Rail();
+            Field currentB = BFirst;
+
+            currentB = MakeMultipleLinks(currentB, 4);
+
+            CFirst = new Rail();
+            Field currentC = CFirst;
+
+            currentC = MakeMultipleLinks(currentC, 7);
+
+            Switch switch1 = new Switch { State = State.FROMLOWER, Upper = (Rail)currentA, Lower = (Rail)currentB, Next = new Rail() };
+            currentA.Next = switch1;
+            currentB.Next = switch1;
+
+            Switch switch2 = new Switch { State = State.TOUPPER, Upper = new Rail(), Lower = new Rail() };
+            switch2.Next = switch2.Upper;
+
+            switch1.Next.Next = switch2;
+            switch2.Lower.Next = new Rail();
+
+            Switch switch3 = new Switch { State = State.FROMLOWER, Upper = (Rail)switch2.Lower.Next, Lower = (Rail)currentC, Next = new Rail() };
+            switch2.Lower.Next.Next = switch3;
+            currentC.Next = switch3;
+
+            Switch switch4 = new Switch { State = State.TOLOWER, Upper = new Rail(), Lower = new Rail() };
+            switch4.Next = switch4.Lower;
+            switch4.Upper.Next = new Rail();
+
+            switch3.Next.Next = switch4;
+
+            Field currentD = switch2.Upper;
+
+            currentD = MakeMultipleLinks(currentD, 4);
+
+            Switch switch5 = new Switch { State = State.FROMUPPER, Upper = (Rail)currentD, Lower = (Rail)switch4.Upper.Next, Next = new Rail() };
+            currentD.Next = switch5;
+            switch4.Upper.Next.Next = switch5;
+
+            Field currentE = switch5.Next;
+            //Rails vanaf switch 5.next tot kade
+            currentE = MakeMultipleLinks(currentE, 6);
+
+            //Kade wordt gedefinieert
+            quayField.Quay = currentE;
+
+            //Rest van de 9 rails na kade
+            currentE = MakeMultipleLinks(currentE, 10);
+
+            Field CurrentF = switch4.Lower;
+
+            CurrentF = MakeMultipleLinks(CurrentF, 6);
+
+            CurrentF.Next = new Shunter();
+            CurrentF = CurrentF.Next;
+
+            CurrentF = MakeMultipleLinks(CurrentF, 7);
+
+            switch2.Upper.printValue = "╔";
+            switch2.Lower.printValue = "╚";
+            switch4.Upper.printValue = "╔";
+            switch4.Lower.printValue = "╚";
+            ((Rail)switch4.Lower.Next.Next.Next).printValue = "╗";
+            ((Rail)switch4.Lower.Next.Next.Next.Next).printValue = "╝";
+
+            //6-12 en 3-12
+            ((Rail)switch5.Next.Next).printValue = "╝";
+            ((Rail)switch5.Next.Next.Next).printValue = "║";
+            ((Rail)switch5.Next.Next.Next.Next).printValue = "║";
+            ((Rail)switch5.Next.Next.Next.Next.Next).printValue = "╗";
+
+            ((Rail)AFirst).printValue = "A";
+            ((Rail)BFirst).printValue = "B";
+            ((Rail)CFirst).printValue = "C";
+
+            switches[0] = switch1;
+            switches[1] = switch2;
+            switches[2] = switch3;
+            switches[3] = switch4;
+            switches[4] = switch5;
         }
     }
 }

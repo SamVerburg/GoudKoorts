@@ -17,16 +17,24 @@ namespace GoudKoorts
 
         public GameController()
         {
+            Thread thread = new Thread(PlayGame);
+            thread.Start();
+        }
+
+        private void PlayGame()
+        {
             while (Game.IsPlaying)
             {
-                int threadWait = 50 + (int)(50 / Math.Sqrt(Game.TotalGold + 1));
-                Thread.Sleep(threadWait);
-                
-                
-                OutputView.PrintGame(GetPlayingField(),Game.TotalGold, threadWait);
+                int threadTimer = 500 + (int)(1000 / Math.Sqrt(Game.TotalGold + 1));
+
                 Game.MoveAllObjects();
+                Game.CheckSpawnBoat();
                 Game.SpawnCarts();
+
+                OutputView.PrintGame(GetPlayingField(), Game.TotalGold);
+                Thread.Sleep(threadTimer);
             }
+            OutputView.PrintGame(GetPlayingField(), Game.TotalGold);
             OutputView.ShowLoseMessage(Game.TotalGold);
         }
 
@@ -53,11 +61,9 @@ namespace GoudKoorts
             InsertUntilDivergingSwitch(Game.AFirst, 0, 4);
             InsertUntilDivergingSwitch(Game.BFirst, 0, 6);
             InsertUntilDivergingSwitch(Game.CFirst, 0, 8);
-            //printMatrix();
+
             return playingField;
         }
-
-
 
         private void InsertUntilDivergingSwitch(Field f, int counter, int row)
         {
@@ -123,7 +129,7 @@ namespace GoudKoorts
             for (Field r = f.Upper.Next; r != null; r = r.Next)
             {
                 playingField[row - 1, counter] = r.ToString();
-                
+
                 counter++;
                 if (counter > 12)
                 {
@@ -152,7 +158,7 @@ namespace GoudKoorts
             for (Field r = f.Lower.Next; r != null; r = r.Next)
             {
                 playingField[row + 1, counter] = r.ToString();
-                
+
                 if (row == 7 && counter == 12)
                 {
                     AddShunter(r, counter, row);
@@ -172,29 +178,11 @@ namespace GoudKoorts
                 }
             }
         }
+
         private void AddShunter(Field f, int counter, int row)
         {
-            //Komt hierin wanneer row 9 , en counter 12 is, en tekent de bochten op plaats 9-12 en 10-12
-
-            if (f.MovableObject != null)
-            {
-                playingField[row + 1, counter] = ((Rail)f).ToString();
-            }
-            else
-            {
-                playingField[row + 1, counter] = ((Rail)f).printValue;
-
-            }
-            if (f.Next.MovableObject != null)
-            {
-                playingField[row + 2, counter] = ((Rail)f.Next).ToString();
-
-            }
-            else
-            {
-                playingField[row + 2, counter] = ((Rail)f.Next).printValue;
-
-            }
+            playingField[row + 1, counter] = ((Rail)f).ToString();
+            playingField[row + 2, counter] = ((Rail)f.Next).ToString();
 
             //Maak de rest inc. Shunters
             counter--;
@@ -202,78 +190,26 @@ namespace GoudKoorts
             {
                 playingField[row + 2, counter] = r.ToString();
                 counter--;
-
             }
-
-
         }
 
         private void AddQuayRow(Field f, int counter, int row)
         {
-            //Netter maken ~~! 
+            playingField[row, counter] = ((Rail)f).ToString();
+            playingField[row - 1, counter] = ((Rail)f.Next).ToString();
+            playingField[row - 2, counter] = ((Rail)f.Next.Next).ToString();
+            playingField[row - 3, counter] = ((Rail)f.Next.Next.Next).ToString();
 
-            if (f.MovableObject != null)
-            {
-                playingField[row, counter] = ((Rail)f).ToString();
-            }
-            
-            else
-            {
-                playingField[row, counter] = ((Rail)f).printValue;
-
-            }
-            if (f.Next.MovableObject != null)
-            {
-                playingField[row -1, counter] = ((Rail)f.Next).ToString();
-            }
-
-            else
-            {
-                playingField[row -1, counter] = ((Rail)f.Next).printValue;
-
-            }
-            if (f.Next.Next.MovableObject != null)
-            {
-                playingField[row -2 , counter] = ((Rail)f.Next.Next).ToString();
-            }
-
-            else
-            {
-                playingField[row -2, counter] = ((Rail)f.Next.Next).printValue;
-
-            }
-            if (f.Next.Next.Next.MovableObject != null)
-            {
-                playingField[row -3, counter] = ((Rail)f.Next.Next.Next).ToString();
-            }
-
-            else
-            {
-                playingField[row -3, counter] = ((Rail)f.Next.Next.Next).printValue;
-
-            }
             for (Field r = f.Next.Next.Next.Next; r != null; r = r.Next)
             {
-
-                playingField[row - 3, counter-1] = ((Rail)r).ToString();
+                playingField[row - 3, counter - 1] = ((Rail)r).ToString();
                 counter--;
             }
         }
 
-        private void printMatrix()
+        public void OutputPrint()
         {
-            int rowLength = playingField.GetLength(0);
-            int colLength = playingField.GetLength(1);
-
-            for (int i = 0; i < rowLength; i++)
-            {
-                for (int j = 0; j < colLength; j++)
-                {
-                    Console.Write(string.Format("{0} ", playingField[i, j] + " " + i + " " + j));
-                }
-                Console.Write(Environment.NewLine + Environment.NewLine);
-            }
-            Console.ReadLine();
+            OutputView.PrintGame(GetPlayingField(), Game.TotalGold);
         }
     }
 }

@@ -41,11 +41,11 @@ namespace GoudKoorts
                 return canMove;
             }
 
-            Cart c = (Cart)Field.Next.MovableObject;
+            Cart nextCart = (Cart)Field.Next.MovableObject;
             bool nextCartCanMove = false;
-            if (c != null)
+            if (nextCart != null)
             {
-                nextCartCanMove = c.CanMove();
+                nextCartCanMove = nextCart.CanMove();
             }
 
             //NEXT FIELD IS SWITCH
@@ -59,7 +59,7 @@ namespace GoudKoorts
                 {
                     if (s.CanMoveTo(this))
                     {
-                        if (c != null)
+                        if (nextCart != null && !nextCartCanMove)
                         {
                             HasCrashed = true;
                             canMove = false;
@@ -73,7 +73,7 @@ namespace GoudKoorts
                 //DIVERGING
                 else if (!s.isConverging())
                 {
-                    if (c != null)
+                    if (nextCart != null)
                     {
                         HasCrashed = true;
                         canMove = false;
@@ -82,7 +82,7 @@ namespace GoudKoorts
 
             }
             //NOT SWITCH
-            else if (c != null)
+            else if (nextCart != null)
             {
                 canMove = nextCartCanMove;
                 if (nextCartCanMove == false)

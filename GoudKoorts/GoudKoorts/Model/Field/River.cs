@@ -15,7 +15,7 @@ namespace GoudKoorts
             {
                 return MovableObject.ToString();
             }
-            else if (Quay == null)
+            if (Quay == null)
             {
                 return " ";
             }

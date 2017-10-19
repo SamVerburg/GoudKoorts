@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace GoudKoorts
 {
     public class OutputView
     {
-        public void PrintGame(string[,] playingField, int TotalGold, int threadWait)
+        public void PrintGame(string[,] playingField, int totalGold)
         {
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Blue;
@@ -31,8 +32,7 @@ namespace GoudKoorts
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine("Goud: " + TotalGold);
-            Console.WriteLine("Timer: " + threadWait);
+            Console.WriteLine("Goud: " + totalGold);
         }
 
         public void ShowLoseMessage(int TotalGold)

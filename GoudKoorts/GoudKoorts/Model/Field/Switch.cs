@@ -33,10 +33,6 @@ namespace GoudKoorts
 
         public void SwitchState()
         {
-            if (this.MovableObject != null)
-            {
-                return;
-            }
             switch (State)
             {
                 case State.FROMLOWER:

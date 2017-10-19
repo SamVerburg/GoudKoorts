@@ -16,10 +16,14 @@ namespace GoudKoorts
             {
                 return MovableObject.ToString();
             }
+            if (printValue != null)
+            {
+                return printValue;
+            }
 
             if (this.Next is Switch)
             {
-                Switch s = (Switch) this.Next;
+                Switch s = (Switch)this.Next;
                 if (s.isConverging())
                 {
                     if (s.Upper == this)

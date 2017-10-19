@@ -3,18 +3,16 @@
   <Class Name="GoudKoorts.Cart">
     <Position X="9.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAEAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAACAAAIAAAAAEAAAAEAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>Model\MovableObject\Cart.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="GoudKoorts.Game">
-    <Position X="6.75" Y="3.5" Width="1.5" />
+  <Class Name="GoudKoorts.Game" Collapsed="true">
+    <Position X="6.75" Y="4" Width="1.5" />
     <AssociationLine Name="Objects" Type="GoudKoorts.MovableObject" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="8.25" Y="3.98" />
-        <Point X="8.417" Y="3.98" Type="JumpStart" />
-        <Point X="8.583" Y="3.98" Type="JumpEnd" />
-        <Point X="9.438" Y="3.98" />
+        <Point X="8.25" Y="4.078" />
+        <Point X="9.438" Y="4.078" />
         <Point X="9.438" Y="4.5" />
       </Path>
     </AssociationLine>
@@ -33,8 +31,13 @@
         <Position X="0.12" Y="-0.078" />
       </MemberNameLabel>
     </AssociationLine>
+    <AssociationLine Name="RiverFirst" Type="GoudKoorts.Field">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.091" Y="-0.057" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAAAAAAACAgAAAAAgAAEAEAgAAAAAEAA=</HashCode>
+      <HashCode>QAAIAAAAgAAEAAAAAAACAgGAAAQggAEAEAgAAAAAAgA=</HashCode>
       <FileName>Model\Game.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -55,19 +58,15 @@
     <AssociationLine Name="Field" Type="GoudKoorts.Field" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="8.75" Y="5.02" />
-        <Point X="8.312" Y="5.02" />
-        <Point X="8.312" Y="5.502" />
-        <Point X="4.833" Y="5.502" Type="JumpStart" />
-        <Point X="4.667" Y="5.502" Type="JumpEnd" />
-        <Point X="4.312" Y="5.502" />
-        <Point X="4.312" Y="4.562" />
+        <Point X="3.812" Y="5.02" />
+        <Point X="3.812" Y="4.556" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-0.525" Y="0.404" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>Model\MovableObject\MovableObject.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -95,9 +94,16 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="GoudKoorts.InputView">
-    <Position X="8" Y="0.75" Width="1.5" />
+    <Position X="10" Y="0.75" Width="1.5" />
+    <AssociationLine Name="GameController" Type="GoudKoorts.GameController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.812" Y="2.238" />
+        <Point X="10.812" Y="2.75" />
+        <Point X="8.75" Y="2.75" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>View\InputView.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -105,16 +111,23 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="GoudKoorts.OutputView">
-    <Position X="5.5" Y="0.75" Width="1.5" />
+    <Position X="5.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>View\OutputView.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="GoudKoorts.GameController">
-    <Position X="6.75" Y="2" Width="1.5" />
+  <Class Name="GoudKoorts.GameController" Collapsed="true">
+    <Position X="7.25" Y="2.5" Width="1.5" />
+    <AssociationLine Name="OutputView" Type="GoudKoorts.OutputView" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="2.75" />
+        <Point X="5.812" Y="2.75" />
+        <Point X="5.812" Y="2.296" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAEAAAAAAIQAAEAAAgAAAAAAAAAAAAAAQA=</HashCode>
+      <HashCode>gAAAEAAAAAAEAAABAAIYAAEAAAgAAAAAAAAAAAAAAQA=</HashCode>
       <FileName>Controller\GameController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -122,16 +135,12 @@
       <Property Name="Game" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="GoudKoorts.Field" Collapsed="true">
-    <Position X="3.25" Y="4" Width="1.5" />
+  <Class Name="GoudKoorts.Field">
+    <Position X="2.75" Y="3" Width="1.5" />
     <AssociationLine Name="MovableObject" Type="GoudKoorts.MovableObject" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="4.5" Y="4.562" />
-        <Point X="4.5" Y="5.502" />
-        <Point X="4.667" Y="5.502" Type="JumpStart" />
-        <Point X="4.833" Y="5.502" Type="JumpEnd" />
-        <Point X="8.375" Y="5.502" />
-        <Point X="8.375" Y="4.812" />
+        <Point X="4" Y="4.556" />
+        <Point X="4" Y="4.812" />
         <Point X="8.75" Y="4.812" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -149,7 +158,7 @@
   <Class Name="GoudKoorts.Boat">
     <Position X="8" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgAAAAIAAAAAEAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Model\MovableObject\Boat.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -168,7 +177,7 @@
     </TypeIdentifier>
   </Class>
   <Enum Name="GoudKoorts.State">
-    <Position X="4" Y="8" Width="1.5" />
+    <Position X="1.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACAAAAACAAAAACAAAAAAAAAIAAAA=</HashCode>
       <FileName>State.cs</FileName>
